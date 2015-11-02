@@ -7,10 +7,13 @@
 	<link rel="stylesheet" href="bundleUPnP.css"></link>
 
 	<script src="bundleUPnP.js" defer></script>
-	<script src="../../node_modules/angular/angular.js"></script>
-	<script src="../../node_modules/angular/angular-message.js"></script>
+	<script src="../../bower_components/angular/angular.js"></script>
+	<script src="../../bower_components/angular-messages/angular-message.js"></script>
 
-	angular.module('app', ['ngMessages']);
+	<script>
+		// Include app dependency on ngMaterial
+		angular.module('app', ['ngMessages']);
+	</script>
 
 </head>
 <body>
