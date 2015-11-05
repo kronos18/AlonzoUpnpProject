@@ -10,6 +10,7 @@ module.exports = function (webServer) {
         if (id === 'webServer') {
             return webServer;
         }
+
         var obj = Pnode.prototype.getNode(id);
         if (!obj) {
             obj = Brick.prototype.getBrickFromId(id);
