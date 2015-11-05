@@ -4,7 +4,7 @@
 ////require("./controllerIHM.css");
 ////var utils = ("../../js/utils.js"),
 //var path = require('path'),
-//    angular= require('angular'),
+//    //angular= require('angular'),/
 //    utils = path.resolve('./js/utils.js'),
 //    context = {bricks: {}};
 //console.dir(utils);
