@@ -8,11 +8,36 @@
     <script src="./bower_components/angular-animate/angular-animate.js"></script>
     <script src="./bower_components/angular-material/angular-material.js"></script>
     <script src="./bundleClient.js"></script>
+    <script src="./module/mediatheque/controller/brickController.js"></script>
 
     <link rel="stylesheet" href="./bundleClient.css"/>
 </head>
-<body ng-controller="mediathequeController">
-    <h1>TEST</h1>
-<md-card></md-card>
+<body ng-controller="brickController">
+    <h1>  TEST</h1>
+
+
+    <div ng-controller="AppCtrl" ng-cloak>
+        <md-content class="md-padding" layout="row" layout-wrap layout-align="center start">
+            <div flex="50" layout="column">
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Card with image</span>
+                            <span class="md-subhead">Large</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-lg card-media"></div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button>Action 1</md-button>
+                        <md-button>Action 2</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </md-content>
+    </div>
+
+
 </body>
 </html>

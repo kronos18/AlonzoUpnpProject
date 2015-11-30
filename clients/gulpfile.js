@@ -58,7 +58,7 @@ gulp.task("webpack", function (callback) {
     // run webpack
     webpack({
         entry: {
-            bundleClient: "./module/client.js"
+            bundleClient: "./module/mediatheque/controller/brickController.js"
         },
         output: {
             path: "./",
