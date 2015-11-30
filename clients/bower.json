@@ -1,0 +1,23 @@
+{
+  "name": "clients",
+  "homepage": "https://github.com/kronos18/AlonzoUpnpProject",
+  "authors": [
+    "kronos18 <ivan.raficoff@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "~0.11.4"
+  }
+}
