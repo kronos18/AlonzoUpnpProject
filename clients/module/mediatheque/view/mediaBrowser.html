@@ -1,0 +1,21 @@
+<!--Je vais afficher les mediaserveurs-->
+<!--{{bricks | json}}-->
+<section class="mediaServeurs">
+    <section class="mediaServeur"
+             ng-repeat="mediaServeur in ctrl.bricks | toArray:false | filter:{type:'BrickUPnP_MediaServer'}"
+             ng-click="ctrl.Browse(mediaServeur.id,0)">
+         <!--affiche le mediaserveur serialise en json-->
+        <h2>{{mediaServeur.name}}</h2>
+        <p>{{mediaServeur.type}}</p>
+    </section>
+</section>
+<!--Puis les conteneurs-->
+<section class="containers">
+    <section class="container"
+             ng-click="ctrl.Browse(ctrl.idCurrentMediaServer, container.id)"
+             ng-repeat="container in ctrl.containers">
+        Container: {{container.title}}
+    </section>
+</section>
+
+<!--Puis les medias-->

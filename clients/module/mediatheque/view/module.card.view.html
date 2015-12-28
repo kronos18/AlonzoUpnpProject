@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--permet de faire le lien au module-->
+<html lang="en" ng-app="mediathequeModule">
+<head>
+    <!--<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css">-->
+    <link rel="stylesheet" href="/clients/bower_components/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="./../css/module.card.view.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+    <!-- Material Design icon font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+    <script src="/clients/bower_components/angular/angular.js"></script>
+    <script src="/clients/bower_components/angular-material/angular-material.js"></script>
+    <script src="/clients/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/clients/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/clients/bower_components/angular-toArrayFilter/toArrayFilter.js"></script>
+    <script src="/clients/bundleClient.js" defer></script>
+
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="mediathequeController as mc">
+
+
+<h1>TEST</h1>
+
+<!--<div ng-cloak>-->
+<!--<md-content class="md-padding" layout="row" layout-wrap layout-align="center start">-->
+<!--<div flex="50" layout="column">-->
+<!--<md-card>-->
+<!--<md-card-title>-->
+<!--<md-card-title-text>-->
+<!--<span class="md-headline">Card with image</span>-->
+<!--<span class="md-subhead">Large</span>-->
+<!--</md-card-title-text>-->
+<!--<md-card-title-media>-->
+<!--<div class="md-media-lg card-media"></div>-->
+<!--</md-card-title-media>-->
+<!--</md-card-title>-->
+<!--<md-card-actions layout="row" layout-align="end center">-->
+<!--<md-button>Lecture</md-button>-->
+<!--<md-button>Stop</md-button>-->
+<!--</md-card-actions>-->
+<!--</md-card>-->
+<!--</div>-->
+<!--</md-content>-->
+
+<media-browser title="Mon explorateur de media" bricks="mc.bricks"></media-browser>
+
+
+</body>
+</html>
