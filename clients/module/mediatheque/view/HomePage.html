@@ -19,66 +19,95 @@
 
 
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
 </head>
 <body ng-controller="mediathequeController as mc">
 
-<md-button class="md-raised" md-colspan-gt-md="1" md-colspan-md="1" md-colspan-sm="1"
-           ng-click="mc.goBackToserversUpnP()">Back to servers
-</md-button>
-<md-button class="md-raised"
-           ng-click="mc.Browse(mc.idCurrentMediaServer, mc.idParentConteneur, 0)">Back to parent
-</md-button>
-<div>
-    <!--<md-grid-list class="gridListdemoDynamicTiles"-->
-    <!--md-cols-sm="4" md-cols-md="2" md-cols-gt-md="6"-->
-    <!--md-row-height-gt-md="1:1" md-row-height="4:3"-->
-    <!--md-gutter="8px" md-gutter-gt-sm="4px">-->
-    <iframe ng-src="{{detailFrame}}" width="640" height="480">
-        <p>Something wrong...</p>
-    </iframe>
-    <md-grid-list class="gridListdemoDynamicTiles" md-cols-gt-md="12" md-cols-md="1" md-cols-sm="1" md-gutter="4px"
-                  md-row-height="1:1">
 
-        <md-grid-tile ng-repeat="mediaServeur in mc.bricks | toArray:false | filter:{type:'BrickUPnP_MediaServer'}"
-                      ng-click="mc.Browse(mediaServeur.id,0, 0)"
-                      layout="column"
-                      md-rowspan="1"
-                      md-colspan="2"
-                      md-colspan-sm="1"
-                      ng-class="pink">
-            <img class="icone" data-ng-src="{{mediaServeur.iconURL}}">
-            <md-grid-tile-footer><h3>{{mediaServeur.name}}</h3></md-grid-tile-footer>
-        </md-grid-tile>
+<div layout="row" layout-wrap>
+    <div flex="100">
+        <md-menu>
+            <md-button ng-click="$mdOpenMenu($event)" class="md-raised" aria-label="Navigation">
+                <img class="icone" src="./../ressources/ic_menu.png" alt="Navigation">
+                Navigation
+            </md-button>
+            <md-menu-content >
+                <md-menu-item>
+                    <md-button ng-click="mc.serversUpnP()" aria-label="Back To Servers">
+                        <img class="icone" src="./../ressources/ic_home.png" alt="Back To Servers"/>
+                        Back To Servers
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <md-button ng-click="mc.Browse(mc.idCurrentMediaServer, mc.idParentConteneur, 0)" aria-label="Back To Parent">
+                        <img class="icone" src="./../ressources/ic_back.png" alt="Back To Parent"/>
+                        Back To Parent
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+    <div flex="20">
+        <md-grid-list class="gridListdemoDynamicTiles"
+                      md-cols="1"
+                      md-cols-gt-md="1"
+                      md-cols-md="1"
+                      md-cols-sm="1"
+                      md-gutter="20px"
+                      md-row-height="1:1">
+            <md-grid-tile ng-repeat="mediaServeur in mc.bricks | toArray:false | filter:{type:'BrickUPnP_MediaServer'}"
+                          ng-click="mc.Browse(mediaServeur.id,0, 0)"
+                          layout="raw"
+                          md-rowspan="1"
+                          md-colspan="1"
+                          md-colspan-sm="1"
+                          ng-class="pink">
+                <img class="icone" data-ng-src="{{mediaServeur.iconURL}}">
+                <md-grid-tile-footer><h3>{{mediaServeur.name}}</h3></md-grid-tile-footer>
+            </md-grid-tile>
+        </md-grid-list>
+    </div>
+    <div flex="80">
+        <!--<md-grid-list class="gridListdemoDynamicTiles"-->
+        <!--md-cols-sm="4" md-cols-md="2" md-cols-gt-md="6"-->
+        <!--md-row-height-gt-md="1:1" md-row-height="4:3"-->
+        <!--md-gutter="8px" md-gutter-gt-sm="4px">-->
+        <iframe ng-src="{{detailFrame}}" width="640" height="480">
+            <p>Something wrong...</p>
+        </iframe>
 
-        <!--La liste des dossiers (appeles container)-->
-        <md-grid-tile ng-click="mc.Browse(mc.idCurrentMediaServer, container.id, mc.idCurrentConteneur,item.uri)"
-                      ng-repeat="container in mc.containers"
-                      md-rowspan="1"
-                      md-colspan="2"
-                      md-colspan-sm="1"
-                      ng-class="pink">
+        <md-grid-list class="gridListdemoDynamicTiles"
+                      md-cols="1"
+                      md-cols-gt-md="12"
+                      md-cols-md="1"
+                      md-cols-sm="1"
+                      md-gutter="4px"
+                      md-row-height="1:1">
 
-            <img class="icone" src="./../ressources/folder.png" alt="Smiley face">
-            <md-grid-tile-footer align="middle">{{container.title}}</md-grid-tile-footer>
-        </md-grid-tile>
+            <md-grid-tile ng-click="mc.Browse(mc.idCurrentMediaServer, container.id, mc.idCurrentConteneur,item.uri)"
+                          ng-repeat="container in mc.containers"
+                          md-rowspan="1"
+                          md-colspan="1"
+                          md-colspan-sm="1"
+                          ng-class="pink">
+                <img class="icone" src="./../ressources/folder.png" alt="Smiley face">
+                <md-grid-tile-footer align="middle">{{container.title}}</md-grid-tile-footer>
+            </md-grid-tile>
 
-        <!--La liste des medias (appeles item)-->
-        <md-grid-tile ng-click="mc.Browse(mc.idCurrentMediaServer, item.id, mc.idCurrentConteneur,item.uri)"
-                      ng-repeat="item in mc.items"
-                      md-rowspan="1"
-                      md-colspan="2"
-                      md-colspan-sm="1"
-                      ng-class="pink">
-            <md-grid-tile-footer align="middle">{{item.title}}</md-grid-tile-footer>
-            <!-- ajout de l'iframe pour le lecteur -->
+            <!--La liste des medias (appeles item)-->
+            <md-grid-tile ng-click="mc.Browse(mc.idCurrentMediaServer, item.id, mc.idCurrentConteneur,item.uri)"
+                          ng-repeat="item in mc.items"
+                          md-rowspan="1"
+                          md-colspan="1"
+                          md-colspan-sm="1"
+                          ng-class="pink">
+                <md-grid-tile-footer align="middle">{{item.title}}</md-grid-tile-footer>
+                <!-- ajout de l'iframe pour le lecteur -->
+            </md-grid-tile>
 
-        </md-grid-tile>
-
-
-    </md-grid-list>
-
+        </md-grid-list>
+    </div>
 </div>
-
 </body>
 </html>
