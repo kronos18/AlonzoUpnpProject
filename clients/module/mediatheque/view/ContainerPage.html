@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--permet de faire le lien au module-->
+<html lang="en" ng-app="mediathequeModule">
+<head>
+    <!--<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css">-->
+    <link rel="stylesheet" href="/clients/bower_components/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="./../css/module.card.view.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+    <!-- Material Design icon font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+    <script src="/clients/bower_components/angular/angular.js"></script>
+    <script src="/clients/bower_components/angular-material/angular-material.js"></script>
+    <script src="/clients/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/clients/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/clients/bower_components/angular-toArrayFilter/toArrayFilter.js"></script>
+    <script src="/clients/bundleClient.js" defer></script>
+
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="mediathequeController as mc">
+
+
+<h1>TEST</h1>
+
+
+
+
+<md-whiteframe class="md-whiteframe-3dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout layout-align="center center"
+               ng-click="mc.ctrl.Browse(ctrl.idCurrentMediaServer, container.id)"
+               ng-repeat="container in ctrl.containers">
+    <media-browser></media-browser>
+</md-whiteframe>
+
+
+
+
+
+</div>
+
+</body>
+</html>

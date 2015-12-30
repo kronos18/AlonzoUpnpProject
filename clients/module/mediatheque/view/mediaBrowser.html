@@ -17,5 +17,13 @@
         Container: {{container.title}}
     </section>
 </section>
+<section class="items">
+    <section class="item"
+             ng-click="ctrl.Browse(ctrl.idCurrentMediaServer, item.id)"
+             ng-repeat="item in ctrl.items">
+        item: {{item.title}}
+    </section>
+</section>
+
 
 <!--Puis les medias-->
