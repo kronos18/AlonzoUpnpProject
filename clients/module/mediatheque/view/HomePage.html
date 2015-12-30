@@ -24,10 +24,10 @@
 <body ng-controller="mediathequeController as mc">
 
 <md-button class="md-raised" md-colspan-gt-md="1" md-colspan-md="1" md-colspan-sm="1"
-           ng-click="mc.serversUpnP()">Back To Servers
+           ng-click="mc.serversUpnP()">Back to servers
 </md-button>
 <md-button class="md-raised"
-           ng-click="mc.Browse(mc.idCurrentMediaServer, mc.idParentConteneur, 0)">Back To Pranet
+           ng-click="mc.Browse(mc.idCurrentMediaServer, mc.idParentConteneur, 0)">Back to parent
 </md-button>
 <div>
     <!--<md-grid-list class="gridListdemoDynamicTiles"-->
@@ -40,8 +40,6 @@
     <md-grid-list class="gridListdemoDynamicTiles" md-cols-gt-md="12" md-cols-md="1" md-cols-sm="1" md-gutter="4px"
                   md-row-height="1:1">
 
-
-
         <md-grid-tile ng-repeat="mediaServeur in mc.bricks | toArray:false | filter:{type:'BrickUPnP_MediaServer'}"
                       ng-click="mc.Browse(mediaServeur.id,0, 0)"
                       layout="column"
@@ -49,11 +47,11 @@
                       md-colspan="2"
                       md-colspan-sm="1"
                       ng-class="pink">
-            <img class="icone" src="./../ressources/plex.png" alt="Smiley face">
+            <img class="icone" data-ng-src="{{mediaServeur.iconURL}}">
             <md-grid-tile-footer><h3>{{mediaServeur.name}}</h3></md-grid-tile-footer>
         </md-grid-tile>
 
-
+        <!--La liste des dossiers (appeles container)-->
         <md-grid-tile ng-click="mc.Browse(mc.idCurrentMediaServer, container.id, mc.idCurrentConteneur,item.uri)"
                       ng-repeat="container in mc.containers"
                       md-rowspan="1"
@@ -61,19 +59,18 @@
                       md-colspan-sm="1"
                       ng-class="pink">
 
-            <img class="icone" src="./../ressources/kodi.png" alt="Smiley face">
-            <md-grid-tile-footer><h3>Container: {{container.title}}</h3></md-grid-tile-footer>
+            <img class="icone" src="./../ressources/folder.png" alt="Smiley face">
+            <md-grid-tile-footer align="middle">{{container.title}}</md-grid-tile-footer>
         </md-grid-tile>
 
+        <!--La liste des medias (appeles item)-->
         <md-grid-tile ng-click="mc.Browse(mc.idCurrentMediaServer, item.id, mc.idCurrentConteneur,item.uri)"
                       ng-repeat="item in mc.items"
                       md-rowspan="1"
                       md-colspan="2"
                       md-colspan-sm="1"
                       ng-class="pink">
-            <md-icon md-svg-icon="avatar:svg-3"></md-icon>
-
-            <md-grid-tile-footer><h3>{{item.title}}</h3></md-grid-tile-footer>
+            <md-grid-tile-footer align="middle">{{item.title}}</md-grid-tile-footer>
             <!-- ajout de l'iframe pour le lecteur -->
 
         </md-grid-tile>

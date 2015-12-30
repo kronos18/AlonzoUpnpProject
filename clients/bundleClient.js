@@ -55,40 +55,44 @@
 	        function ($scope, $sce, $http) {
 	            var ctrl = this;
 
-	            ctrl.bricks = {};
+	            ctrl.bricks         = {};
+	            ctrl.saveBricksHome = {};
 	            $http.get('/getContext')
 	                .success(function (data) {
-	                    //ctrl.context = data;
+	                    ctrl.context = data;
 
 	                    var i;
 	                    for (i in data.bricks) {
 	                        ctrl.bricks[i] = data.bricks[i];
 	                    }
-
 	                    console.log("ctrl.context", ctrl.context);
 	                    utils.io.on("brickAppears"
 	                        , function (data) {
 	                            console.log("brickAppears", data);
 	                            ctrl.bricks[data.id] = data;
+	                            ctrl.saveIdHome      = ctrl.bricks;
 	                            $scope.$apply();
 	                        });
 	                    utils.io.on("brickDisappears"
 	                        , function (data) {
 	                            console.log("brickDisappears,data");
 	                            delete ctrl.bricks[data.brickId];
+	                            ctrl.saveIdHome = ctrl.bricks;
 	                            $scope.$apply();
 	                        });
 	                });
 	            ctrl.serversUpnP = function () {
-	                ctrl.bricks     = ctrl.currentBricks;
-	                ctrl.containers = {};
+	                ctrl.bricks = ctrl.saveBricksHome;
+	                //ctrl.containers = {};
 	                console.log("containers:", ctrl.containers);
-	                console.log("bricks:", ctrl.bricks);
+	                console.log("bricks = save :", ctrl.bricks);
 	                console.log("idCurrentConteneur:", ctrl.idCurrentConteneur);
 	                console.log("idParentConteneur:", ctrl.idParentConteneur);
 	                console.log("bricks.length:", ctrl.bricks.length);
+	                //$scope.$apply();
 	            }
-	            ctrl.Browse      = function (idMediaServeur, idConteneur, idCurrentConteneur1, itemUri) {
+
+	            ctrl.Browse = function (idMediaServeur, idConteneur, idCurrentConteneur1, itemUri) {
 	                //je fais l'appel au serveur tactab (nodejs) pour obtenir le contenu du repertoire identifie par
 	                //idConteneur present sur le serveur upnp identife par idMediaServeur
 	                ctrl.idCurrentMediaServer = idMediaServeur
@@ -118,6 +122,7 @@
 	                            ctrl.containers.push({
 	                                id: containersXML[i].getAttribute("id"),
 	                                title: containersXML[i].querySelector("title").textContent
+
 	                            });
 	                        }
 	                        for (i = 0; i < mediasXML.length; i++) {
@@ -139,7 +144,6 @@
 	                        console.log("item en dehors de la fonction:", ctrl.items);
 	                        ctrl.itemUri = itemUri;
 	                        console.log("ctrl.itemUri:", ctrl.itemUri);
-	                        console.log("ctrl.itemUri.toString():", ctrl.itemUri.toString());
 	                        if (ctrl.itemUri) {
 	                            console.log("on est dans le if");
 
