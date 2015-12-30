@@ -1,0 +1,34 @@
+<!--Je vais afficher les mediaserveurs-->
+<!--{{bricks | json}}-->
+
+<md-sidenav  layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+    <md-list  class="mediaServeurs">
+
+        <md-item class="mediaServeur"
+                 ng-repeat="mediaServeur in ctrl.bricks | toArray:false | filter:{type:'BrickUPnP_MediaServer'}"
+                 ng-click="ctrl.Browse(mediaServeur.id,0)">
+            <!--affiche le mediaserveur serialise en json-->
+
+
+            <a>
+                <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                    <div class="inset">
+                        <ng-md-icon icon="{{mediaServeur.name}}"></ng-md-icon>
+                    </div>
+                    <div class="inset">{{mediaServeur.type}}
+                    </div>
+                </md-item-content>
+            </a>
+        </md-item>
+    </md-list>
+</md-sidenav>
+<!--Puis les conteneurs-->
+<section class="containers">
+    <section class="container"
+             ng-click="ctrl.Browse(ctrl.idCurrentMediaServer, container.id)"
+             ng-repeat="container in ctrl.containers">
+        Container: {{container.title}}
+    </section>
+</section>
+
+<!--Puis les medias-->

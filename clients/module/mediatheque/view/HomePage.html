@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--permet de faire le lien au module-->
+<html lang="en" ng-app="mediathequeModule">
+<head>
+    <!--<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css">-->
+    <link rel="stylesheet" href="/clients/bower_components/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="./../css/module.card.view.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="/clients/module/mediatheque/css/HomePageStyle.css">
+    <!-- Material Design icon font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+    <script src="/clients/bower_components/angular/angular.js"></script>
+    <script src="/clients/bower_components/angular-material/angular-material.js"></script>
+    <script src="/clients/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/clients/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/clients/bower_components/angular-toArrayFilter/toArrayFilter.js"></script>
+    <script src="/clients/bundleClient.js" defer></script>
+
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="mediathequeController as mc">
+
+<md-button class="md-raised" md-colspan-gt-md="1" md-colspan-md="1" md-colspan-sm="1"
+           ng-click="mc.serversUpnP()">Back To Servers
+</md-button>
+<md-button class="md-raised"
+           ng-click="mc.Browse(mc.idCurrentMediaServer, mc.idParentConteneur, 0)">Back To Pranet
+</md-button>
+<div>
+    <!--<md-grid-list class="gridListdemoDynamicTiles"-->
+    <!--md-cols-sm="4" md-cols-md="2" md-cols-gt-md="6"-->
+    <!--md-row-height-gt-md="1:1" md-row-height="4:3"-->
+    <!--md-gutter="8px" md-gutter-gt-sm="4px">-->
+    <iframe ng-src="{{detailFrame}}" width="640" height="480">
+        <p>Something wrong...</p>
+    </iframe>
+    <md-grid-list class="gridListdemoDynamicTiles" md-cols-gt-md="12" md-cols-md="1" md-cols-sm="1" md-gutter="4px"
+                  md-row-height="1:1">
+
+
+
+        <md-grid-tile ng-repeat="mediaServeur in mc.bricks | toArray:false | filter:{type:'BrickUPnP_MediaServer'}"
+                      ng-click="mc.Browse(mediaServeur.id,0, 0)"
+                      layout="column"
+                      md-rowspan="1"
+                      md-colspan="2"
+                      md-colspan-sm="1"
+                      ng-class="pink">
+            <img class="icone" src="./../ressources/plex.png" alt="Smiley face">
+            <md-grid-tile-footer><h3>{{mediaServeur.name}}</h3></md-grid-tile-footer>
+        </md-grid-tile>
+
+
+        <md-grid-tile ng-click="mc.Browse(mc.idCurrentMediaServer, container.id, mc.idCurrentConteneur,item.uri)"
+                      ng-repeat="container in mc.containers"
+                      md-rowspan="1"
+                      md-colspan="2"
+                      md-colspan-sm="1"
+                      ng-class="pink">
+
+            <img class="icone" src="./../ressources/kodi.png" alt="Smiley face">
+            <md-grid-tile-footer><h3>Container: {{container.title}}</h3></md-grid-tile-footer>
+        </md-grid-tile>
+
+        <md-grid-tile ng-click="mc.Browse(mc.idCurrentMediaServer, item.id, mc.idCurrentConteneur,item.uri)"
+                      ng-repeat="item in mc.items"
+                      md-rowspan="1"
+                      md-colspan="2"
+                      md-colspan-sm="1"
+                      ng-class="pink">
+            <md-icon md-svg-icon="avatar:svg-3"></md-icon>
+
+            <md-grid-tile-footer><h3>{{item.title}}</h3></md-grid-tile-footer>
+            <!-- ajout de l'iframe pour le lecteur -->
+
+        </md-grid-tile>
+
+
+    </md-grid-list>
+
+</div>
+
+</body>
+</html>
