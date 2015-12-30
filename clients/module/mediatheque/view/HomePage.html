@@ -23,28 +23,12 @@
 </head>
 <body ng-controller="mediathequeController as mc">
 
-
-<md-menu >
-    <md-button ng-click="$mdOpenMenu($event)" class="md-raised" aria-label="Navigation">
-        <img class="icone" src="./../ressources/ic_menu.png" alt="Navigation">
-        Navigation
-    </md-button>
-    <md-menu-content >
-        <md-menu-item>
-            <md-button ng-click="mc.serversUpnP()" aria-label="Back To Servers">
-                <img class="icone" src="./../ressources/ic_home.png" alt="Back To Servers">
-                Back To Servers
-            </md-button>
-        </md-menu-item>
-        <md-menu-item>
-            <md-button ng-click="mc.Browse(mc.idCurrentMediaServer, mc.idParentConteneur, 0)" aria-label="Back To Parent">
-                <img class="icone" src="./../ressources/ic_back.png" alt="Back To Parent">
-                Back To Parent
-            </md-button>
-        </md-menu-item>
-    </md-menu-content>
-</md-menu>
-
+<md-button class="md-raised" md-colspan-gt-md="1" md-colspan-md="1" md-colspan-sm="1"
+           ng-click="mc.goBackToserversUpnP()">Back to servers
+</md-button>
+<md-button class="md-raised"
+           ng-click="mc.Browse(mc.idCurrentMediaServer, mc.idParentConteneur, 0)">Back to parent
+</md-button>
 <div>
     <!--<md-grid-list class="gridListdemoDynamicTiles"-->
     <!--md-cols-sm="4" md-cols-md="2" md-cols-gt-md="6"-->
@@ -56,8 +40,6 @@
     <md-grid-list class="gridListdemoDynamicTiles" md-cols-gt-md="12" md-cols-md="1" md-cols-sm="1" md-gutter="4px"
                   md-row-height="1:1">
 
-
-
         <md-grid-tile ng-repeat="mediaServeur in mc.bricks | toArray:false | filter:{type:'BrickUPnP_MediaServer'}"
                       ng-click="mc.Browse(mediaServeur.id,0, 0)"
                       layout="column"
@@ -65,11 +47,11 @@
                       md-colspan="2"
                       md-colspan-sm="1"
                       ng-class="pink">
-            <img class="icone" src="./../ressources/plex.png" alt="Smiley face">
+            <img class="icone" data-ng-src="{{mediaServeur.iconURL}}">
             <md-grid-tile-footer><h3>{{mediaServeur.name}}</h3></md-grid-tile-footer>
         </md-grid-tile>
 
-
+        <!--La liste des dossiers (appeles container)-->
         <md-grid-tile ng-click="mc.Browse(mc.idCurrentMediaServer, container.id, mc.idCurrentConteneur,item.uri)"
                       ng-repeat="container in mc.containers"
                       md-rowspan="1"

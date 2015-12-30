@@ -24,25 +24,30 @@ angular.module('mediathequeModule', ['ngMaterial', 'angular-toArrayFilter'])
                         , function (data) {
                             console.log("brickAppears", data);
                             ctrl.bricks[data.id] = data;
-                            ctrl.saveIdHome      = ctrl.bricks;
                             $scope.$apply();
                         });
                     utils.io.on("brickDisappears"
                         , function (data) {
                             console.log("brickDisappears,data");
                             delete ctrl.bricks[data.brickId];
-                            ctrl.saveIdHome = ctrl.bricks;
                             $scope.$apply();
                         });
                 });
-            ctrl.serversUpnP = function () {
+            var ilExisteDesMediatheques = ctrl.bricks.toString().length > 0;
+            if (ilExisteDesMediatheques) {
+                console.log("ON EST DANS LE IF");
+                ctrl.saveBricksHome = ctrl.bricks;
+            }
+
+            ctrl.goBackToserversUpnP = function () {
                 ctrl.bricks = ctrl.saveBricksHome;
-                //ctrl.containers = {};
+                ctrl.containers = {};
                 console.log("containers:", ctrl.containers);
-                console.log("bricks = save :", ctrl.bricks);
+                console.log("saveBricksHome:", ctrl.saveBricksHome);
+                console.log("bricks  :", ctrl.bricks);
                 console.log("idCurrentConteneur:", ctrl.idCurrentConteneur);
                 console.log("idParentConteneur:", ctrl.idParentConteneur);
-                console.log("bricks.length:", ctrl.bricks.length);
+                console.log("bricks.length:", ctrl.bricks.toString().length > 0);
                 //$scope.$apply();
             }
 
