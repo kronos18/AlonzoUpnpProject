@@ -42,28 +42,41 @@
                 <p>
                     <md-divider></md-divider>
                 </p>
-                <md-button ng-repeat="mediaServeur in mc.bricks | toArray:false | filter:{type:'BrickUPnP_MediaServer'}"
-                           ng-click="mc.Browse(mediaServeur.id,0, 0)" show-gt-md>
-                    <img class="icone" data-ng-src="{{mediaServeur.iconURL}}" width="30" height="30"/>
-                    {{mediaServeur.name}}
-                </md-button>
-                <div layout="column" layout-align="top left">
-                    <md-button ng-repeat="container in mc.containers"
-                               ng-click="mc.Browse(mc.idCurrentMediaServer, container.id, mc.idCurrentConteneur,item.uri)"
-                               show-gt-md>
-                        <img class="icone" src="./../ressources/folder.png" width="30" height="30"/>
-                        {{container.title}}
-                    </md-button>
+
+                <div layout="row">
+                    <md-list ng-cloak>
+                        <md-list-item ng-repeat="mediaServeur in mc.bricks | toArray:false | filter:{type:'BrickUPnP_MediaServer'}">
+                            <md-button ng-click="mc.Browse(mediaServeur.id,0, 0)" show-gt-md>
+                                <img class="icone" data-ng-src="{{mediaServeur.iconURL}}" width="30" height="30"/>
+                                {{mediaServeur.name}}
+                            </md-button>
+                        </md-list-item>
+                    </md-list>
                 </div>
-                <md-list ng-cloak>
-                    <md-list-item ng-repeat="item in mc.items">
-                        <img class="icone" src="./../ressources/folder.png" width="30" height="30"/>
-                        <p> {{item.title}} </p>
-                        <md-button ng-click="mc.Browse(mc.idCurrentMediaServer, item.id, mc.idCurrentConteneur,item.uri)" show-gt-md>
-                            <img class="icone" src="./../ressources/ic_play.png"/>
-                        </md-button>
-                    </md-list-item>
-                </md-list>
+
+                <div layout="row">
+                    <md-list ng-cloak>
+                        <md-list-item ng-repeat="container in mc.containers">
+                            <md-button ng-click="mc.Browse(mc.idCurrentMediaServer, container.id, mc.idCurrentConteneur,item.uri)" show-gt-md>
+                                <img class="icone" src="./../ressources/folder.png" width="30" height="30"/>
+                                {{container.title}}
+                            </md-button>
+                        </md-list-item>
+                    </md-list>
+                </div>
+
+                <div layout="row">
+                    <md-list ng-cloak>
+                        <md-list-item ng-repeat="item in mc.items">
+                            <img class="icone" src="./../ressources/folder.png" width="30" height="30"/>
+                            <p>{{item.title}}</p>
+                            <md-button ng-click="mc.Browse(mc.idCurrentMediaServer, item.id, mc.idCurrentConteneur,item.uri)" show-gt-md>
+                                <img class="icone" src="./../ressources/ic_play.png" />
+                            </md-button>
+                        </md-list-item>
+                    </md-list>
+                </div>
+
             </md-content>
         </md-sidenav>
         <div layout="column" layout-fill layout-align="top left">
