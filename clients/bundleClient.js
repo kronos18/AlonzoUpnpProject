@@ -124,11 +124,17 @@
 	                        ctrl.containers   = [];
 	                        ctrl.items        = [];
 	                        for (i = 0; i < containersXML.length; i++) {
-	                            ctrl.containers.push({
-	                                id: containersXML[i].getAttribute("id"),
-	                                title: containersXML[i].querySelector("title").textContent
-
-	                            });
+	                            if (containersXML[i].querySelector("albumArtURI") !== null) {
+									var sPict = containersXML[i].querySelector("albumArtURI").textContent;
+								}
+								else {
+									var sPict = "";
+								}
+								ctrl.containers.push({
+									id: containersXML[i].getAttribute("id"),
+									title: containersXML[i].querySelector("title").textContent,
+									pict: sPict
+								});
 	                        }
 	                        for (i = 0; i < mediasXML.length; i++) {
 	                            ctrl.items.push({

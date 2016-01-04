@@ -58,7 +58,8 @@
                     <md-list ng-cloak>
                         <md-list-item ng-repeat="container in mc.containers">
                             <md-button ng-click="mc.Browse(mc.idCurrentMediaServer, container.id, mc.idCurrentConteneur,item.uri)" show-gt-md>
-                                <img class="icone" src="./../ressources/folder.png" width="30" height="30"/>
+                                <!--<img class="icone" src="./../ressources/folder.png" width="30" height="30"/>-->
+                                <img class="icone" data-ng-src="{{container.pict}}" width="30" height="30"  src="./../ressources/folder.png"/>
                                 {{container.title}}
                             </md-button>
                         </md-list-item>
@@ -68,7 +69,7 @@
                 <div layout="row">
                     <md-list ng-cloak>
                         <md-list-item ng-repeat="item in mc.items">
-                            <img class="icone" data-ng-src="{{item.pict}}" width="30" height="30"/>
+                            <img class="icone" data-ng-src="{{item.pict}}" width="30" height="30" src="./../ressources/folder.png"/>
                             <p>{{item.title}}</p>
                             <md-button ng-click="mc.Browse(mc.idCurrentMediaServer, item.id, mc.idCurrentConteneur,item.uri)" show-gt-md>
                                 <img class="icone" ng-src="./../ressources/ic_play.png" />

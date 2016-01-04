@@ -78,11 +78,22 @@ angular.module('mediathequeModule', ['ngMaterial', 'angular-toArrayFilter'])
                         ctrl.containers   = [];
                         ctrl.items        = [];
                         for (i = 0; i < containersXML.length; i++) {
-                            ctrl.containers.push({
-                                id: containersXML[i].getAttribute("id"),
-                                title: containersXML[i].querySelector("title").textContent
-
-                            });
+                            if (mediasXML[i].querySelector("albumArtURI") !== null)
+                            {
+                                ctrl.containers.push({
+                                    id: containersXML[i].getAttribute("id"),
+                                    title: containersXML[i].querySelector("title").textContent,
+                                    pict: mediasXML[i].querySelector("albumArtURI").textContent
+                                });
+                            }
+                            else
+                            {
+                                ctrl.containers.push({
+                                    id: containersXML[i].getAttribute("id"),
+                                    title: containersXML[i].querySelector("title").textContent,
+                                    pict: ""
+                                });
+                            }
                         }
                         for (i = 0; i < mediasXML.length; i++) {
                             ctrl.items.push({
