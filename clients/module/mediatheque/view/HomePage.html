@@ -23,91 +23,108 @@
 </head>
 <body ng-controller="mediathequeController as mc">
 
-
-<div layout="row" layout-wrap>
-    <div flex="100">
-        <md-menu>
-            <md-button ng-click="$mdOpenMenu($event)" class="md-raised" aria-label="Navigation">
-                <img class="icone" src="./../ressources/ic_menu.png" alt="Navigation">
-                Navigation
-            </md-button>
-            <md-menu-content >
-                <md-menu-item>
-                    <md-button ng-click="mc.serversUpnP()" aria-label="Back To Servers">
-                        <img class="icone" src="./../ressources/ic_home.png" alt="Back To Servers"/>
-                        Back To Servers
+<div ng-controller="SideNavCTRL" layout="column" style="height:500px;" ng-cloak>
+    <section layout="row" flex>
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+                    md-is-locked-open="$mdMedia('gt-md')">
+            <md-toolbar class="md-theme-indigo">
+                <h1 class="md-toolbar-tools">Navigation</h1>
+            </md-toolbar>
+            <md-content layout-padding ng-controller="SideNavLeftCtrl">
+                <md-button ng-click="mc.serversUpnP()" aria-label="Back To Servers" show-gt-md>
+                    <img class="icone" src="./../ressources/ic_home.png" alt="Back To Servers"/>
+                    Server selection
+                </md-button>
+                <md-button ng-click="mc.Browse(mc.idCurrentMediaServer, mc.idParentConteneur, 0)"
+                           aria-label="Back To Parent" show-gt-md>
+                    <img class="icone" src="./../ressources/ic_back.png" alt="Back To Parent"/>
+                    Back To Parent
+                </md-button>
+                <p hide-md show-gt-md>
+                    <md-divider></md-divider>
+                </p>
+                <md-button ng-repeat="mediaServeur in mc.bricks | toArray:false | filter:{type:'BrickUPnP_MediaServer'}"
+                           ng-click="mc.Browse(mediaServeur.id,0, 0)" show-gt-md>
+                    <img class="icone" data-ng-src="{{mediaServeur.iconURL}}" width="30" height="30"/>
+                    {{mediaServeur.name}}
+                </md-button>
+                <div layout="column" layout-align="top left">
+                    <md-button ng-repeat="container in mc.containers"
+                               ng-click="mc.Browse(mc.idCurrentMediaServer, container.id, mc.idCurrentConteneur,item.uri)"
+                               show-gt-md>
+                        <img class="icone" src="./../ressources/folder.png" width="30" height="30"/>
+                        {{container.title}}
                     </md-button>
-                </md-menu-item>
-                <md-menu-divider></md-menu-divider>
-                <md-menu-item>
-                    <md-button ng-click="mc.Browse(mc.idCurrentMediaServer, mc.idParentConteneur, 0)" aria-label="Back To Parent">
-                        <img class="icone" src="./../ressources/ic_back.png" alt="Back To Parent"/>
-                        Back To Parent
-                    </md-button>
-                </md-menu-item>
-            </md-menu-content>
-        </md-menu>
-    </div>
-    <div flex="20">
-        <md-grid-list class="gridListdemoDynamicTiles"
-                      md-cols="1"
-                      md-cols-gt-md="1"
-                      md-cols-md="1"
-                      md-cols-sm="1"
-                      md-gutter="20px"
-                      md-row-height="1:1">
-            <md-grid-tile ng-repeat="mediaServeur in mc.bricks | toArray:false | filter:{type:'BrickUPnP_MediaServer'}"
-                          ng-click="mc.Browse(mediaServeur.id,0, 0)"
-                          layout="raw"
-                          md-rowspan="1"
-                          md-colspan="1"
-                          md-colspan-sm="1"
-                          ng-class="pink">
-                <img class="icone" data-ng-src="{{mediaServeur.iconURL}}">
-                <md-grid-tile-footer><h3>{{mediaServeur.name}}</h3></md-grid-tile-footer>
-            </md-grid-tile>
-        </md-grid-list>
-    </div>
-    <div flex="80">
-        <!--<md-grid-list class="gridListdemoDynamicTiles"-->
-        <!--md-cols-sm="4" md-cols-md="2" md-cols-gt-md="6"-->
-        <!--md-row-height-gt-md="1:1" md-row-height="4:3"-->
-        <!--md-gutter="8px" md-gutter-gt-sm="4px">-->
-        <iframe ng-src="{{detailFrame}}" width="640" height="480">
-            <p>Something wrong...</p>
-        </iframe>
+                </div>
+            </md-content>
+        </md-sidenav>
+        <div layout="column" layout-fill layout-align="top left">
+            <div>
+                <md-button ng-click="toggleLeft()"
+                           class="md-primary" hide-gt-md>
+                    Show navigation menu
+                </md-button>
+            </div>
 
-        <md-grid-list class="gridListdemoDynamicTiles"
-                      md-cols="1"
-                      md-cols-gt-md="12"
-                      md-cols-md="1"
-                      md-cols-sm="1"
-                      md-gutter="4px"
-                      md-row-height="1:1">
+            <div>
+                <md-button ng-click="toggleRight()"
+                           ng-hide="isOpenRight()"
+                           class="md-primary">
+                    Search
+                </md-button>
+            </div>
 
-            <md-grid-tile ng-click="mc.Browse(mc.idCurrentMediaServer, container.id, mc.idCurrentConteneur,item.uri)"
-                          ng-repeat="container in mc.containers"
-                          md-rowspan="1"
-                          md-colspan="1"
-                          md-colspan-sm="1"
-                          ng-class="pink">
-                <img class="icone" src="./../ressources/folder.png" alt="Smiley face">
-                <md-grid-tile-footer align="middle">{{container.title}}</md-grid-tile-footer>
-            </md-grid-tile>
+            <md-content class="md-padding" layout="row" layout-wrap layout-align="left start" layout-xs="column">
+                <div flex="25" flex-sm="50" flex-md="50" flex-xs="100" layout="column" ng-repeat="item in mc.items">
+                    <md-card>
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">{{item.title}}</span>
+                            </md-card-title-text>
+                            <md-card-title-media>
+                                <img class="icone" src="./../ressources/folder.png"/>
+                            </md-card-title-media>
+                        </md-card-title>
+                        <md-card-actions layout="row" layout-align="end center">
+                            <md-button
+                                    ng-click="mc.Browse(mc.idCurrentMediaServer, item.id, mc.idCurrentConteneur,item.uri)"
+                                    show-gt-md>
+                                Open media
+                            </md-button>
+                        </md-card-actions>
+                    </md-card>
+                </div>
+            </md-content>
 
-            <!--La liste des medias (appeles item)-->
-            <md-grid-tile ng-click="mc.Browse(mc.idCurrentMediaServer, item.id, mc.idCurrentConteneur,item.uri)"
-                          ng-repeat="item in mc.items"
-                          md-rowspan="1"
-                          md-colspan="1"
-                          md-colspan-sm="1"
-                          ng-class="pink">
-                <md-grid-tile-footer align="middle">{{item.title}}</md-grid-tile-footer>
-                <!-- ajout de l'iframe pour le lecteur -->
-            </md-grid-tile>
+            <iframe ng-src="{{detailFrame}}" width="640" height="480">
+                <p>Something wrong...</p>
+            </iframe>
+        </div>
+        <div flex></div>
 
-        </md-grid-list>
-    </div>
+
+        <!-- right side of the nav side-->
+        <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+            <md-toolbar class="md-theme-light">
+                <h1 class="md-toolbar-tools">Search</h1>
+            </md-toolbar>
+            <md-content ng-controller="SideNavRightCtrl" layout-padding>
+                <form>
+                    <md-input-container>
+                        <label for="testInput">Text to search</label>
+                        <input type="text" id="testInput"
+                               ng-model="data" md-autofocus>
+                    </md-input-container>
+                </form>
+                <md-button ng-click="close()" class="md-primary">
+                    Cancel
+                </md-button>
+                <md-button ng-click="close()" class="md-primary">
+                    Search !
+                </md-button>
+            </md-content>
+        </md-sidenav>
+    </section>
 </div>
 </body>
 </html>
