@@ -68,10 +68,10 @@
                 <div layout="row">
                     <md-list ng-cloak>
                         <md-list-item ng-repeat="item in mc.items">
-                            <img class="icone" src="./../ressources/folder.png" width="30" height="30"/>
+                            <img class="icone" data-ng-src="{{item.pict}}" width="30" height="30"/>
                             <p>{{item.title}}</p>
                             <md-button ng-click="mc.Browse(mc.idCurrentMediaServer, item.id, mc.idCurrentConteneur,item.uri)" show-gt-md>
-                                <img class="icone" src="./../ressources/ic_play.png" />
+                                <img class="icone" ng-src="./../ressources/ic_play.png" />
                             </md-button>
                         </md-list-item>
                     </md-list>

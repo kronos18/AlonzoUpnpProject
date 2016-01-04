@@ -134,6 +134,8 @@
 	                            ctrl.items.push({
 	                                id: mediasXML[i].getAttribute("id"),
 	                                title: mediasXML[i].querySelector("title").textContent,
+	                                director: mediasXML[i].querySelector("director").textContent,
+	                                pict: mediasXML[i].querySelector("albumArtURI").textContent,
 	                                uri: mediasXML[i].querySelector("res").textContent
 	                            });
 	                        }
