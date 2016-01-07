@@ -40,8 +40,9 @@ angular.module('mediathequeModule', ['ngMaterial', 'angular-toArrayFilter'])
             }
 
             ctrl.goBackToserversUpnP = function () {
-                ctrl.bricks = ctrl.saveBricksHome;
+                ctrl.bricks     = ctrl.saveBricksHome;
                 ctrl.containers = {};
+                ctrl.items = {};
                 console.log("containers:", ctrl.containers);
                 console.log("saveBricksHome:", ctrl.saveBricksHome);
                 console.log("bricks  :", ctrl.bricks);
@@ -78,29 +79,24 @@ angular.module('mediathequeModule', ['ngMaterial', 'angular-toArrayFilter'])
                         ctrl.containers   = [];
                         ctrl.items        = [];
                         for (i = 0; i < containersXML.length; i++) {
-                            if (mediasXML[i].querySelector("albumArtURI") !== null)
-                            {
-                                ctrl.containers.push({
-                                    id: containersXML[i].getAttribute("id"),
-                                    title: containersXML[i].querySelector("title").textContent,
-                                    pict: mediasXML[i].querySelector("albumArtURI").textContent
-                                });
-                            }
-                            else
-                            {
-                                ctrl.containers.push({
-                                    id: containersXML[i].getAttribute("id"),
-                                    title: containersXML[i].querySelector("title").textContent,
-                                    pict: ""
-                                });
-                            }
+                            ctrl.containers.push({
+                                id: containersXML[i].getAttribute("id"),
+                                title: containersXML[i].querySelector("title").textContent
+
+                            });
                         }
                         for (i = 0; i < mediasXML.length; i++) {
+                            albumArtURI = mediasXML[i].querySelector("albumArtURI");
+                            if (!albumArtURI) {
+                                albumArtURI = "./../ressources/folder.png";
+                            }
+                            else {
+                                albumArtURI = albumArtURI.textContent
+                            }
                             ctrl.items.push({
                                 id: mediasXML[i].getAttribute("id"),
                                 title: mediasXML[i].querySelector("title").textContent,
-                                director: mediasXML[i].querySelector("director").textContent,
-                                pict: mediasXML[i].querySelector("albumArtURI").textContent,
+                                icon: albumArtURI,
                                 uri: mediasXML[i].querySelector("res").textContent
                             });
                         }
@@ -196,9 +192,9 @@ angular.module('mediathequeModule', ['ngMaterial', 'angular-toArrayFilter'])
             }
         }
     ).controller('SideNavCTRL', function ($scope, $timeout, $mdSidenav, $log) {
-        $scope.toggleLeft = buildDelayedToggler('left');
+        $scope.toggleLeft  = buildDelayedToggler('left');
         $scope.toggleRight = buildToggler('right');
-        $scope.isOpenRight = function(){
+        $scope.isOpenRight = function () {
             return $mdSidenav('right').isOpen();
         };
         /**
@@ -209,20 +205,21 @@ angular.module('mediathequeModule', ['ngMaterial', 'angular-toArrayFilter'])
             var timer;
             return function debounced() {
                 var context = $scope,
-                    args = Array.prototype.slice.call(arguments);
+                    args    = Array.prototype.slice.call(arguments);
                 $timeout.cancel(timer);
-                timer = $timeout(function() {
+                timer = $timeout(function () {
                     timer = undefined;
                     func.apply(context, args);
                 }, wait || 10);
             };
         }
+
         /**
          * Build handler to open/close a SideNav; when animation finishes
          * report completion in console
          */
         function buildDelayedToggler(navID) {
-            return debounce(function() {
+            return debounce(function () {
                 $mdSidenav(navID)
                     .toggle()
                     .then(function () {
@@ -230,8 +227,9 @@ angular.module('mediathequeModule', ['ngMaterial', 'angular-toArrayFilter'])
                     });
             }, 200);
         }
+
         function buildToggler(navID) {
-            return function() {
+            return function () {
                 $mdSidenav(navID)
                     .toggle()
                     .then(function () {
