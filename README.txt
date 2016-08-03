@@ -1,1 +1,1 @@
-Client-serveur pour le projet TActHab (Théorie de l'Activité pour l'habitat.
+Projet UpnP pour le 1er semestre de master 2.
